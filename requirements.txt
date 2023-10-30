@@ -1,0 +1,7 @@
+plotly
+prophet
+pandas
+numpy
+streamlit
+statsmodels.tsa.stattools
+statsmodels.tsa.statespace.sarimax

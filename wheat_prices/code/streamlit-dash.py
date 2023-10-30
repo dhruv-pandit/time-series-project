@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-!pip install statsmodels
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import plotly.express as px

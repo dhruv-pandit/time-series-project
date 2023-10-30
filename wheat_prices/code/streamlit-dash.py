@@ -11,7 +11,7 @@ from prophet import Prophet
 # Read data
 @st.cache_data
 def load_data():
-    url = 'https://github.com/dhruv-pandit/time-series-project/blob/33d707e837449a341a05f576f928f891fbd4f696/wheat_prices/Datasets/PWHEAMTUSDM.xls'
+    url = 'https://raw.githubusercontent.com/dhruv-pandit/time-series-project/main/wheat_prices/Datasets/PWHEAMTUSDM.xls'
     df_wheat = pd.read_excel(url, skiprows=10, engine='xlrd').rename(columns={'PWHEAMTUSDM' : 'Wheat_Price'})
     return df_wheat
 

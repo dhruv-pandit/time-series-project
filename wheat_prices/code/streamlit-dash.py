@@ -11,7 +11,7 @@ from prophet import Prophet
 # Read data
 @st.cache_data
 def load_data():
-    df_wheat = pd.read_excel(r'/Users/dhruvpandit/Documents/GitHub/time-series-project/wheat_prices/Datasets/PWHEAMTUSDM.xls', skiprows=10).rename(columns={'PWHEAMTUSDM' : 'Wheat_Price'})
+    df_wheat = pd.read_excel(r'wheat_prices/Datasets/PWHEAMTUSDM.xls', skiprows=10).rename(columns={'PWHEAMTUSDM' : 'Wheat_Price'})
     return df_wheat
 
 # Check stationarity

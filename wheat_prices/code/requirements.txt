@@ -1,6 +1,6 @@
-statsmodels
 plotly
 prophet
 pandas
 numpy
 streamlit
+statsmodels

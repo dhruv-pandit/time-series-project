@@ -3,4 +3,5 @@ prophet
 pandas
 numpy
 streamlit
-statsmodels
+statsmodels.tsa.stattools
+statsmodels.tsa.statespace.sarimax

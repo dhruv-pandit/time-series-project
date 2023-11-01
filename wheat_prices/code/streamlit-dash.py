@@ -63,43 +63,30 @@ st.plotly_chart(fig_ts)
 st.subheader("Autocorrelation (ACF) & Partial Autocorrelation (PACF) Analysis")
 
 # Allow users to select number of lags
-num_lags = st.slider("Select number of lags:", 1, 50, 20)
+num_lags = st.slider("Select number of lags:", 1, 20, 15)
 
 # Allow users to select ACF or PACF
 plot_type = st.selectbox("Choose plot type:", ["ACF", "PACF"])
 
 # Compute ACF or PACF values based on user selection
 if plot_type == "ACF":
-    values = acf(df_wheat['Wheat_Price'], nlags=num_lags)
+    values, confint = acf(df_wheat['Wheat_Price'], nlags=num_lags, alpha=0.05)
     title = "Autocorrelation Function (ACF)"
 else:
-    values = pacf(df_wheat['Wheat_Price'], nlags=num_lags)
+    values, confint = pacf(df_wheat['Wheat_Price'], nlags=num_lags, alpha=0.05)
     title = "Partial Autocorrelation Function (PACF)"
 
 # Plot ACF or PACF using Plotly
 lags = list(range(num_lags + 1))  # +1 to include lag 0
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=lags, y=values, mode='lines+markers'))
+fig.add_trace(go.Bar(x=lags, y=values))
+fig.update_layout(title=title, xaxis_title="Lag", yaxis_title="Value")
+# Add confidence interval lines
+fig.add_trace(go.Scatter(x=lags, y=confint[:, 0], mode='lines', marker=dict(color="red"), line=dict(dash='dot'), name='Lower CI'))
+fig.add_trace(go.Scatter(x=lags, y=confint[:, 1], mode='lines', marker=dict(color="red"), line=dict(dash='dot'), name='Upper CI'))
+
 fig.update_layout(title=title, xaxis_title="Lag", yaxis_title="Value")
 st.plotly_chart(fig)
-
-# # Stationarity Test section
-# st.subheader("Stationarity Test")
-
-# # Allow users to select a p-value threshold
-# p_value_threshold = st.number_input("Select a p-value threshold:", min_value=0.001, max_value=1.0, value=0.05, step=0.01)
-
-# # Function to check the stationarity of a series based on the chosen p-value
-# def check_stationarity(series, threshold):
-#     test_results = adfuller(series)
-#     if test_results[1] <= threshold:
-#         return f"At a p-value of {threshold}, the series is stationary."
-#     else:
-#         return f"At a p-value of {threshold}, the series is non-stationary."
-
-# # Display the result of the stationarity test
-# result = check_stationarity(df_wheat['Wheat_Price'], p_value_threshold)
-# st.write(result)
 
 
 
